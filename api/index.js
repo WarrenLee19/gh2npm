@@ -13,12 +13,11 @@ const app = express();
 // http://localhost:3000/{author}/{repo}/{folder}?commit={commit}
 
 app.get('/hello', (req, res) => {
-	console.log('req.headers', req.headers);
   res.send('Hey this is my API running 🥳')
 })
 
-app.get('/api/:author/:repo/:folder?/:subFolder?/:subSubFolder?', async (req, res) => {
-	console.log('req.headers', req.headers);
+app.get('/api/:author/:repo/:folder?/:subFolder?/:subSubFolder?', async (req, res, options) => {
+	options.gzip
 	const { author, repo, folder, subFolder, subSubFolder } = req.params;
 	const { commit, branch } = req.query;
 
@@ -33,7 +32,11 @@ app.get('/api/:author/:repo/:folder?/:subFolder?/:subSubFolder?', async (req, re
 	try {
 		const url = `https://codeload.github.com/${author}/${repo}/tar.gz/${ref}`;
 
-		const tgzStream = (await fetch(url)).body;
+		const fetchResult = await fetch(url, {
+			gzip: true
+		})
+		console.log('fetchResult', fetchResult);
+		const tgzStream = fetchResult.body;
 
 		const extractStream = tt.extract({
 			gzip: true
