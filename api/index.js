@@ -17,7 +17,6 @@ app.get('/hello', (req, res) => {
 })
 
 app.get('/api/:author/:repo/:folder?/:subFolder?/:subSubFolder?', async (req, res, options) => {
-	options.gzip
 	const { author, repo, folder, subFolder, subSubFolder } = req.params;
 	const { commit, branch } = req.query;
 
@@ -35,7 +34,6 @@ app.get('/api/:author/:repo/:folder?/:subFolder?/:subSubFolder?', async (req, re
 		const fetchResult = await fetch(url, {
 			gzip: true
 		})
-		console.log('fetchResult', fetchResult);
 		const tgzStream = fetchResult.body;
 
 		const extractStream = tt.extract({
