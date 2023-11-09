@@ -21,8 +21,8 @@ Stream github repo as targz
 ### how to used in `your` repository
 - create a branch feature/* from main
 - write feature code
-- merge into keepwork-main
+- merge into your-main
 - npm run prepare-release
 - git push
-- in keepwork reposity
+- in your reposity
 `npm install https://gh2npm.vercel.app/api/WarrenLee19/bundle-url-check-plugin?branch=main`
